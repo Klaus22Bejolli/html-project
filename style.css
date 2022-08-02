@@ -1,0 +1,339 @@
+
+
+  /* nav styles */
+  
+  #sse1
+  {
+      /*You can decorate the menu's container, such as adding background images through this block*/
+      background-color: rgb(13, 7, 187);
+      height: 38px;
+      padding: 25px;
+      
+  }
+  #sses1
+  {
+      margin:0 auto;/*This will make the menu center-aligned. Removing this line will make the menu align left.*/
+  }
+  #sses1 ul 
+  { 
+      position: relative;
+      list-style-type: none;
+      float:left;
+      padding:0;margin:0;
+      border-bottom:solid 1px #6C0000;
+  }
+  #sses1 li
+  {
+      float:left;
+      list-style-type: none;
+      padding:0;margin:0;background-image:none;
+  }
+  /*CSS for background bubble*/
+  #sses1 li.highlight
+  {
+      background-color:#800;
+      top:36px;
+      height:2px;
+      border-bottom:solid 1px #C00;
+      z-index: 1;
+      position: absolute;
+      overflow:hidden;
+      
+  }
+  #sses1 li a
+  {
+      height:30px;
+      padding-top: 8px;
+      margin: 0 50px;/*used to adjust the distance between each menu item. Now the distance is 20+20=40px.*/
+      color: #fff;
+      font: normal 30px arial;
+      text-align: center;
+      text-decoration: none;
+      float: left;
+      display: block;
+      position: relative;
+      z-index: 2;
+  }
+  
+  #banner{
+      background: url(./fotot/1234foto.jpg);
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      
+  }
+ 
+  
+  .banner-text{
+      text-align: center;
+      color: #fff;
+      padding-top :180px; 
+  }
+  .banner-text h1{
+      font-size: 130px;
+      font-family: 'Fascinate Inline';
+  
+  }
+  .banner-text p{
+      font-size:20px;
+      font-style: italic;
+  }
+  
+  
+  .feature-box{
+      width: 80%;
+      margin: auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      text-align: center;
+  }
+  .features{
+      flex-basis: 50%;
+  }
+  .features-img{
+      flex-basis: 50%;
+      margin: auto;
+  }
+  .features-img img{
+      width: 70%;
+      border-radius: 10px;
+  
+  }
+  .features h1{
+      text-align: left;
+      margin-bottom: 10px; 
+      font-weight: 100;
+      color: #3737e5;
+  }
+  
+  .feature-desc{
+      display: flex;
+      align-items:center;
+      margin-bottom: 40px;
+  
+  }
+  .feature-icon{
+      width: 50px;
+      height: 50px;
+      font-size: 30px;
+      line-height: 50px;
+      border-radius: 8px;
+      color: #387eb8;
+      border: 1px solid #480ebc;
+  }
+  .feature-text p{
+      padding: 0 20px;
+      text-align: initial;
+  
+  }
+  
+  #feature{
+      width: 100%;
+      padding: 70px 0;
+  
+  }
+  .tittle-text{
+      text-align:center;
+      padding-bottom: 70px;
+  
+  }
+  .tittle-text p{
+      margin: auto;
+      font-size: 20px;
+      color: #20758f;
+      font-weight: bold;
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+  }
+  .tittle-text p::after{
+      content: '';
+      width: 50px;
+      height: 35px;
+      background: linear-gradient(#255577,#fff);
+      position: absolute;
+      top: -20px;
+      left: 0;
+      z-index: -1;
+      transform: rotate(10deg);
+      border-top-left-radius: 35px;
+      border: bottom right radius 35px;
+  
+  }
+  .tittle-text h1{
+      font-size: 50px;
+  
+  }
+  
+  
+  #service{
+      width: 100%;
+      
+      padding: 70px 0;
+      background: #efefef;
+  }
+  .service-box{
+      width: 80%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      margin: auto;
+  }
+  .single-sevice{
+      flex-basis: 48%;
+      text-align: center;
+      border-bottom: 7px;
+      margin-top: 20px;
+      color: #fff;
+      position: relative;
+  }
+  .single-sevice img{
+      width: 100%;
+      border-radius: 7px;
+  }
+  .samsung {
+    width:  100% !important;
+
+  }
+  .overlay{
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      border-radius: 7px;
+      cursor: pointer;
+      background: linear-gradient(rgba(0,0,0,0.5),#d9f1ee);
+      opacity: 0;
+      transition: 1s;
+  }
+  .single-sevice:hover .overlay{
+      opacity: 1;
+  }
+  .service-desc{
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      opacity: 0;
+      transform: translateX(-50%);
+      transition: 1s;
+  }
+  hr{
+      background: #fff;
+      height: 2px;
+      border: 0;
+      margin: 15px auto;
+      width: 60%;
+  }
+  .service-desc p{
+      font-size: 14px;
+  }
+  .single-sevice:hover .service-desc{
+      bottom: 40%;
+      opacity: 1;
+       
+  }
+  @media screen and (max-width:770px) {}
+
+  .single-sevice{
+    flex-basis: 100%;
+    margin-bottom: 30px;
+
+}
+
+.service-desc p{
+      font-size: 12px;
+  }
+  hr{
+      margin: 5px auto;
+  
+  
+  }
+  .single-sevice:hover .service-desc{
+      bottom: 25% !important;
+      
+  }
+  
+    #testimonial{
+        width: 100%;
+        padding: 70px 0;
+    }
+    .testimonial-row{
+      width: 80%;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    
+    
+   
+    /*--foter--*/
+    #footer{
+        padding: 100px 0 20px;
+        background: #efefef;
+        position: relative;
+    }
+    
+    .foter-row{
+        width: 80%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+  
+    }
+    .foter-left, .foter-right{
+        flex-basis: 45%;
+        padding: 10px;
+        margin-bottom: 20px;
+  
+    }
+    .foter-right{
+        text-align: right;
+    }
+    .foter-row h1{
+  margin: 10px 0;
+    }
+    .foter-row p{
+        margin: 10px 0;
+        line-height: 35px;
+    }
+    .foter-left .fa, .foter-right .fa{
+        font-size: 20px;
+        color: #019587;
+        margin: 10px;
+    }
+    .fotoja-futer{
+        max-width: 370px;
+        opacity: 0.1;
+        position: absolute;
+        left: 50%;
+        top: 35%;
+        transform:translate(-50%,-50%) ;
+    }
+    .socjal-link{
+        text-align: center;
+    }
+    .socjal-link .fa{
+        height: 40px;
+        width: 40px;
+        font-size: 20px;
+        line-height: 40px;
+        border: 1px solid #009688;
+        margin: 40px 5px 0;
+        color: #70cfc6;
+        cursor: pointer;
+        transition: .5s;
+  
+         
+    }
+    .socjal-link .fa:hover{
+        background: #6de3d7;
+        color: #fff;
+        transform: translateY(-7px);
+  
+    }
+   

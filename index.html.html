@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"> 
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+    
+    <title>SMART SHOP AL</title>
+  </head>
+  <body>
+    <header>
+        
+        <div id="sse1">
+            <div id="sses1">
+              <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Potofolio</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Contact</a></li>
+              </ul>
+            </div>
+          </div>   
+              <script>
+                var sse1 = function () {
+    var rebound = 20; //set it to 0 if rebound effect is not prefered
+    var slip, k;
+    return {
+        buildMenu: function () {
+            var m = document.getElementById('sses1');
+            if(!m) return;
+            var ul = m.getElementsByTagName("ul")[0];
+            m.style.width = ul.offsetWidth+1+"px";
+            var items = m.getElementsByTagName("li");
+            var a = m.getElementsByTagName("a");
+
+            slip = document.createElement("li");
+            slip.className = "highlight";
+            ul.appendChild(slip);
+
+            var url = document.location.href.toLowerCase();
+            k = -1;
+            var nLength = -1;
+            for (var i = 0; i < a.length; i++) {
+                if (url.indexOf(a[i].href.toLowerCase()) != -1 && a[i].href.length > nLength) {
+                    k = i;
+                    nLength = a[i].href.length;
+                }
+            }
+
+            if (k == -1 && /:\/\/(?:www\.)?[^.\/]+?\.[^.\/]+\/?$/.test) {
+                for (var i = 0; i < a.length; i++) {
+                    if (a[i].getAttribute("maptopuredomain") == "true") {
+                        k = i;
+                        break;
+                    }
+                }
+                if (k == -1 && a[0].getAttribute("maptopuredomain") != "false")
+                    k = 0;
+            }
+
+            if (k > -1) {
+                slip.style.width = items[k].offsetWidth + "px";
+                //slip.style.left = items[k].offsetLeft + "px";
+                sse1.move(items[k]); //comment out this line and uncomment the line above to disable initial animation
+            }
+            else {
+                slip.style.visibility = "hidden";
+            }
+
+            for (var i = 0; i < items.length - 1; i++) {
+                items[i].onmouseover = function () {
+                    if (k == -1) slip.style.visibility = "visible";
+                    if (this.offsetLeft != slip.offsetLeft) {
+                        sse1.move(this);
+                    }
+                }
+            }
+
+            m.onmouseover = function () {
+                if (slip.t2)
+                    slip.t2 = clearTimeout(slip.t2);
+            };
+
+            m.onmouseout = function () {
+                if (k > -1 && items[k].offsetLeft != slip.offsetLeft) {
+                    slip.t2 = setTimeout(function () { sse1.move(items[k]); }, 50);
+                }
+                if (k == -1) slip.t2 = setTimeout(function () { slip.style.visibility = "hidden"; }, 50);
+            };
+        },
+        move: function (target) {
+            clearInterval(slip.timer);
+            var direction = (slip.offsetLeft < target.offsetLeft) ? 1 : -1;
+            slip.timer = setInterval(function () { sse1.mv(target, direction); }, 15);
+        },
+        mv: function (target, direction) {
+            if (direction == 1) {
+                if (slip.offsetLeft - rebound < target.offsetLeft)
+                    this.changePosition(target, 1);
+                else {
+                    clearInterval(slip.timer);
+                    slip.timer = setInterval(function () {
+                        sse1.recoil(target, 1);
+                    }, 15);
+                }
+            }
+            else {
+                if (slip.offsetLeft + rebound > target.offsetLeft)
+                    this.changePosition(target, -1);
+                else {
+                    clearInterval(slip.timer);
+                    slip.timer = setInterval(function () {
+                        sse1.recoil(target, -1);
+                    }, 15);
+                }
+            }
+            this.changeWidth(target);
+        },
+        recoil: function (target, direction) {
+            if (direction == -1) {
+                if (slip.offsetLeft > target.offsetLeft) {
+                    slip.style.left = target.offsetLeft + "px";
+                    clearInterval(slip.timer);
+                }
+                else slip.style.left = slip.offsetLeft + 2 + "px";
+            }
+            else {
+                if (slip.offsetLeft < target.offsetLeft) {
+                    slip.style.left = target.offsetLeft + "px";
+                    clearInterval(slip.timer);
+                }
+                else slip.style.left = slip.offsetLeft - 2 + "px";
+            }
+        },
+        changePosition: function (target, direction) {
+            if (direction == 1) {
+                //following +1 will fix the IE8 bug of x+1=x, we force it to x+2
+                slip.style.left = slip.offsetLeft + Math.ceil(Math.abs(target.offsetLeft - slip.offsetLeft + rebound) / 10) + 1 + "px";
+            }
+            else {
+                //following -1 will fix the Opera bug of x-1=x, we force it to x-2
+                slip.style.left = slip.offsetLeft - Math.ceil(Math.abs(slip.offsetLeft - target.offsetLeft + rebound) / 10) - 1 + "px";
+            }
+        },
+        changeWidth: function (target) {
+            if (slip.offsetWidth != target.offsetWidth) {
+                var diff = slip.offsetWidth - target.offsetWidth;
+                if (Math.abs(diff) < 4) slip.style.width = target.offsetWidth + "px";
+                else slip.style.width = slip.offsetWidth - Math.round(diff / 3) + "px";
+            }
+        }
+    };
+} ();
+
+if (window.addEventListener) {
+    window.addEventListener("load", sse1.buildMenu, false);
+}
+else if (window.attachEvent) {
+    window.attachEvent("onload", sse1.buildMenu);
+}
+else {
+    window["onload"] = sse1.buildMenu;
+}
+              </script>
+       
+    <!--javasc-->
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+const navLink = document.querySelector('.nav__link');
+
+hamburger.addEventListener('click', () => {
+  navLink.classList.toggle('hide');
+
+});
+</script>
+<section id="banner">
+        
+        <div class="banner-text">
+            <h1>Computer &amp; Phone Shop</h1>
+            <p>"Zgjedhja ne doren tuajt"</p>
+        </div>
+
+    </section>
+    
+    
+    
+    
+    <section id="feature">
+        <div class="tittle-text">
+            <p>Kompania</p>
+            <h1>Mire se erdhet</h1>
+        </div>
+    </section>
+    
+    
+    
+    
+    
+    <script>
+        
+        var scroll = new SmoothScroll('a[href*="#"]', {
+	speed: 500,
+	speedAsDuration: true
+});
+    
+    </script>
+    <hr>
+    
+    <div class="feature-box">
+        <div class="features">
+            <h1>Eksperienca jone ne treg</h1>
+            <div class="feature-desc">
+                <div class="feature-icon">
+                    <i class="fa fa-shield"></i>
+                </div>
+                <div class="feature-text">
+                    <p>me nje eksperienc mbi 10 vjecare ne treg ne ofrijme garanci dhe siguri mbi blerjen tuaj.Ne ju garantojm siguri dhe cilesi</p>
+                </div>
+            </div>
+            <h1>Cfare ofrojme ne per ju</h1>
+            <div class="feature-desc">
+                <div class="feature-icon">
+                    <i class="fa fa-american-sign-language-interpreting"></i>
+                </div>
+                <div class="feature-text">
+                    <p>Ne ofrojme produktet me me te mira ne treg ,ofrojme cdo risi mbi tekonlogjine e re te celulareve smartfone dhe te kompjuterave ose laptopet,motoja jone "Cdo gje e re vjen me pare te ne"</p>
+                </div>
+            </div>
+            <h1>Cfare kerkon kompania jone na ju</h1>
+            <div class="feature-desc">
+                <div class="feature-icon">
+                    <i class="fa fa-thumbs-up"></i>
+                </div>
+                <div class="feature-text">
+                    <p>Ne kerkojme nga ana juaj te jeni serioze ne blerjet tuaja ,dhe te shlyeni cdo detyrim ne kohen e duhur</p>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="features-img">
+            <img src="./fotot/staf1.jpeg">
+
+            
+
+        </div>
+
+    </div>
+    <div class="row"></div>
+    <section id="service">
+        <div class="tittle-text">
+            <p>Klaus Computer Center</p>
+            <h1>Produktet tona</h1>
+            </div>
+            <div class="service-box">
+                <div class="col-sm-12 col-lg-5">
+                <div class="single-sevice">
+                    <img src="./fotot/samsung.jpeg">
+                    <div class="overlay"></div>
+                    <div class="service-desc">
+                    <h3>SAMSUNG GALAXY S21 ultra</h3>
+                    <hr>
+                    <p>Njihuni me Galaxy S21 Ultra. Me revolucionarin 8K Video Snap qe ndryshon menyren sesi kapni jo vetem videon, por edhe fotografine. ekran 6.8 inch  AMOLeD 2X me frekuence rifreskimi 120Hz. Kamera me 4 lente, 108MP + 10MP + 10MP + 12MP dhe kamera selfie 40MP.</p>
+                </div>
+            </div>
+                </div><div class="col-sm-12 col-lg-5 offset-lg-2 ">
+                <div class="single-sevice">
+                    <img src="./fotot/iPHone.jpg">
+                    <div class="overlay"></div>
+                    <div class="service-desc">
+                        <h3>IPHONE 13 PRO MAX</h3>
+                        <hr>
+                        <p>Me ne fund erdhi i shum kerkuari IPHONE 13 PRO MAX,Advanced dual-camera system,Superfast 5G cellular³,4CORE GPU,500 GIGA ROM</p>
+                    </div>
+                </div>
+            </div>
+                <div class="col-sm-12 col-lg-5">
+                <div class="single-sevice">
+                    <img src="./fotot/kompjuter.jpg">
+                    <div class="overlay"></div>
+                    <div class="service-desc">
+                        <h3>Kompjuter i markes "DELL"</h3>
+                        <hr>
+                        <p>Kompjuteri eshte i ri ne kuti,i sapo ardhur ne kompanine tone grafikat e tij jane:24 GIGA RAM,500 SSD,CORE I 7,GEN 10</p>
+                    </div>
+                </div>
+            </div>
+                <div class="col-sm-12 col-lg-5 offset-lg-2 ">
+                <div class="single-sevice">
+                    <img src="./fotot/laaptop.jpg">
+                    <div class="overlay"></div>
+                    <div class="service-desc">
+                        <h3>Laptop i markes "HP" </h3>
+                        <hr>
+                        <p>Laptomi HP ProBook ,esht i pershtatshem per cdo lloj profesjoni  grafikat e tij jane : ekran 14.1 INC, 16 GIGA RAM ,240 SSD,CORE I 4,GEN 5</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+  
+        
+
+    </section>
+    <section>
+       
+        <section id="testimonial"></section>
+        <div class="tittle-text">
+            <p>Kenaqesia juaj,Obligimi jone </p>
+            <h1>Pershtypjet nga kliententet</h1>
+            </div>
+            <!--butstrapi-->
+            <div class="container border border-primary">
+                <h1 style="text-align:center;">KLIKONI PER TE SHIKUAR KOMENTET</h1>
+                
+                <div class="text-center">
+                    
+                    <button id="btn" class="btn btn-primary text ">
+                     KLIKONI KETU
+                    </button>
+                </div>
+                <br>
+                <br>
+                <!--jquery-->
+                <script>
+                    $(document).ready(function () {
+                        $("#btn").click(function () {
+                            alert("PO KRYHEN PUNIME!");
+                        });
+                    });
+                </script>
+            
+
+    </div></section>
+    <!--footeri-->
+    <section id="footer">
+        <img src="./fotot/fotojafuter1.jpg" class="fotoja-futer">
+        <div class="tittle-text">
+            <p>Format tona te kontaktit </p>
+            <h1>Na Vizitoni</h1>
+            </div>
+            <div class="foter-row">
+                <div class="foter-left">
+                    <h1>Hapet ne Oren</h1>
+                    
+                    <p><i class="fa fa-clock-o"></i>Nga e Hena ne te Premte -ora 8:00 deri ne 16:30</p>
+                    <p><i class="fa fa-window-close"></i>Ne fundjave jemi mbyllur</p>
+                </div>
+                <div class="foter-right">
+                    <h1>Format tona te kontaktit</h1>
+                    <p><i class="fa fa-map-marker"></i><a href="https://goo.gl/maps/mHcMEsp9V9ULkWsE8">Na vizitoni ne dyqanin tone fizik !</a></p>
+                    <p><i class="fa fa-instagram"></i> <a href="mailto:bejollik@gmail.com"> Faqja jone zyrtare ne instagram</a></p>
+                    <p><i class="fa fa-mobile"></i><a href="tel:+355682571623"> NR: 0682571623</a> </p>
+                </div>
+                </div>
+                
+                
+
+            
+            <div class="socjal-link">
+                <i class="fa fa-facebook"></i>
+                
+                <i class="fa fa-twitter"></i>
+                <i class="fa fa-youtube-play"></i>
+
+            </div>
+
+    </section>
+    
+  
+
+
+</body></html>
